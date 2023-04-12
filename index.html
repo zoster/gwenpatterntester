@@ -1,0 +1,328 @@
+
+
+<html>
+<head>
+<title>Seamless texture check</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Pragma" content="no-cache">
+<style>
+	html, body {
+		margin: 0;
+		padding: 0;
+		width: 100%;
+		height: 200vh;
+		background-size: 150px;
+		/* background-position: center; */
+		background-image: url("default.jpg?1");
+		transition: background-size 0.1s;
+		
+	}
+	*{
+		box-sizing: border-box;
+		font-family: Arial, Helvetica, sans-serif;
+	}
+	.entry{
+		width:100%;
+		height:100vh;
+	}
+	.container {
+		position:relative;
+		width:100%;
+		height:100%;
+	}
+	.content {
+		background-color: red; /* just for the demo */
+		display: inline-block;
+		text-align: left;
+	}
+	a, a:visited, a:active{
+		text-decoration:none;
+		color:#00f;
+	}
+	a:hover{
+		color: #000;
+	}
+	h1{ 
+		font-size:1.6rem;
+		margin:0;
+		line-height: 2.0rem;
+		text-transform:uppercase;
+	}
+	input{
+		background-color:transparent;
+		font-family:"Calibri";
+		text-align: center;
+		border:0px;
+	}
+	#container{
+		width:100%;
+		max-width:480px;
+		margin:auto;
+		padding: 1.5rem;
+
+		line-height: 1.5rem;
+		-moz-border-radius: 15px;
+		border-radius: 15px;
+		border:1px solid #444;
+		
+		position:absolute;
+		left:50%;
+		transition: all 0.1s;
+
+		background-color:#eee;
+	}
+	#setWidthSlider{
+		width:100%;
+	}
+	button,button:active{
+		background-color: #eee;
+		border:1px solid #888;
+		border-radius: 0.4rem;
+		padding:0.4rem 0.8rem;
+		font-size:1.05rem;
+		width:100%;
+		height:2.5rem;
+	}
+	button:hover{
+		cursor:pointer;
+		outline:1px solid #444;
+	}
+	#file{
+		display:none;
+	}
+	.textcenter{
+		text-align: center;
+	}
+	@media only screen and (max-width: 600px) {
+		#container {
+			top:0;
+			transform: translate(-50%,0);
+			padding:1rem;
+		}
+		h1{
+			font-size:1.2rem;
+		}
+		.max600{
+			display:none;
+		}
+	}
+	.center{
+		top:50%;
+		transform: translate(-50%,-50%);
+		
+	}
+	.highlight{
+		background-color: #fff !important;
+	}
+	#pastebox{
+		width:100%;
+		height:2.5rem;
+		border:1px solid #888;
+		border-radius: 0.4rem;
+		background:#eee;
+	}
+	.small{
+		font-size:0.8rem;
+	}
+
+
+	/* range slider styles from https://www.smashingmagazine.com/2021/12/create-custom-range-input-consistent-browsers/ */
+	input[type="range"] {
+		-webkit-appearance: none;
+		appearance: none;
+		background: transparent;
+		cursor: pointer;
+		margin-top:0.2rem;
+	}
+	input[type="range"]:active {
+		cursor: grabbing;
+	}
+    /***** Track Styles *****/
+	/***** Chrome, Safari, Opera, and Edge Chromium *****/
+	input[type="range"]::-webkit-slider-runnable-track {
+		background: #eee;
+		height: 1rem;
+		border-radius: 0.3rem;  
+		/* box-shadow: inset 0 0 5px#aaa; */
+		border:1px solid #888;
+	}
+	
+	/******** Firefox ********/
+	input[type="range"]::-moz-range-track {
+		background: #eee;
+		height: 1rem;
+		border-radius: 0.3rem;  
+		border:1px solid #888;
+	}
+	/***** Thumb Styles *****/
+	/***** Chrome, Safari, Opera, and Edge Chromium *****/
+	input[type="range"]::-webkit-slider-thumb {
+		-webkit-appearance: none; /* Override default look */
+		appearance: none;
+		margin-top: -8px; /* Centers thumb on the track */
+		background-color: #ddd;
+		height: 2rem;
+		width: 2rem;  
+		border-radius: 0.2rem;  
+		border:1px solid #444;
+	}
+	/***** Firefox *****/
+	input[type="range"]::-moz-range-thumb {
+		border: none; /*Removes extra border that FF applies*/
+		border-radius: 0; /*Removes default border-radius that FF applies*/
+		background-color: #ddd;
+		height: 2rem;
+		width: 2rem;
+		border-radius: 0.2rem;  
+		border:1px solid #444;
+	}
+
+</style>
+
+</head>
+<body>
+
+
+
+
+<div class="entry">
+  <div class="container">
+      <div class="content center" id="container">
+
+		<div class="textcenter">
+			<h1>Seamless texture checker</h1>
+			Quick tool to test & check seamless texture
+		</div>
+
+		<div  style="position:sticky;top:0">
+			<div class="scrollsnap textcenter">
+				<p>
+					<span class="max600">Drag and drop local image file anywhere in page, or<br></span>
+					<button onclick="selectfile()">Click here to select a file</button>
+					or try the experimental paste input: 
+					<input id="pastebox" type="text" placeholder="Paste here (copied image address / online image / local image)">
+				</p>
+			</div>
+
+			<!--Original resolution <input id="imageWidth" type="text" size=4 readonly> x <input id="imageHeight" type="text" size="4" readonly>-->
+			<p class="scrollsnap small">
+				Tile width <input id="setWidthSlider" type="range" name="points" min="1" max="20" value="3">
+			</p>
+		</div>
+        <div class="small max600">
+			2023.04.07 easier drag and drop from Midjourney<br>
+			2014.01.26 first online. Tested on Chrome & Firefox<br>
+		</div>
+	
+		<div class="small textcenter">
+        :)
+		</div>
+
+      </div>
+  </div>
+</div>
+
+<input type="file" id="file" onchange="loadfile(this)" accept="image/png, image/jpeg, image/webp">
+
+<script>
+	
+
+	//file select (for mobile)
+	function selectfile(){
+		document.getElementById('file').click()
+	}
+	function loadfile(e){
+		if(!e.files) {return;}
+		const f = e.files[0];
+		handleFile(f);
+	}
+	function handleFile(f){
+		if (!f.type.match('image.*')) {return;}
+		var reader = new FileReader();
+		var image = new Image();
+		reader.onload = (function(theFile) {
+			return function(e) {
+			image.src = e.target.result;
+			image.onload = function() {
+				document.body.style.backgroundImage="url('"+e.target.result+"')";
+			  };
+			};
+		  })(f);
+		reader.readAsDataURL(f);
+	}
+	function handleURL(url){
+		document.body.style.backgroundImage="url('"+url+"')";
+	}
+
+	const pastebox = document.getElementById("pastebox");
+	//paste
+	document.onpaste = (e)=>{
+		handleData(e.clipboardData);
+		pastebox.value = '';
+	}
+	pastebox.onblur = ()=>{
+		pastebox.value = '';
+	}
+	const isUrl = (string) => {
+		try { return Boolean(new URL(string)); }
+		catch(e){ return false; }
+	}
+
+	function handleData(data){
+		if(data.files.length){
+			const f = data.files[0];
+			handleFile(f);
+		}
+		else{
+			const text = data.getData("Text");
+			console.log(isUrl(text))
+			if(isUrl(text)){
+				handleURL(text)
+			}
+		}
+	}
+
+	// drag and drop adopted from http://www.html5rocks.com/en/tutorials/file/dndfiles/
+	function handleFileSelect(evt) {
+		evt.stopPropagation();
+		evt.preventDefault();
+		handleDragLeave(evt);
+
+		// console.log(evt.dataTransfer)
+
+		// var files = evt.dataTransfer.files;
+		// if(files.length == 0){return;}
+		// const f = files[0];
+		// handleFile(f);
+		handleData(evt.dataTransfer);
+		
+	}
+
+	function handleDragOver(evt) {
+		evt.stopPropagation();
+		evt.preventDefault();
+		evt.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
+		document.getElementById('container').classList.add('highlight');
+	}
+	function handleDragLeave(evt) {
+		document.getElementById('container').classList.remove('highlight');
+	}
+	// Setup the dnd listeners.
+	var dropZone = document.body;
+	dropZone.addEventListener('dragover', handleDragOver, false);
+	dropZone.addEventListener('dragleave', handleDragLeave, false);
+	dropZone.addEventListener('drop', handleFileSelect, false);
+
+	/// set image width
+	var p = document.getElementById("setWidthSlider");
+
+	p.addEventListener("input", function() {
+		var widthpx = p.value*50;
+		document.body.style.backgroundSize=""+widthpx.toString()+"px";
+	}, false); 
+
+</script>
+
+
+</body>
+</html>
